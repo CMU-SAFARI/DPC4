@@ -1,0 +1,20 @@
+"L1D": {
+    "prefetch_as_load": false,
+    "virtual_prefetch": true,
+    "prefetch_activate": "LOAD,PREFETCH",
+    "prefetcher": "berti_vip_final"
+},
+
+"L2C": {
+    "prefetch_as_load": false,
+    "virtual_prefetch": false,
+    "prefetch_activate": "LOAD,PREFETCH",
+    "prefetcher": "pythia"
+},
+
+"LLC": {
+    "prefetch_as_load": false,
+    "virtual_prefetch": false,
+    "prefetch_activate": "LOAD,PREFETCH",
+    "prefetcher": "no"
+},
