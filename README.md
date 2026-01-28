@@ -1,6 +1,11 @@
 <p align="center">
-  <h2 align="center">The 4th Data Prefetching Championship (DPC4)</h2>
-  <h4 align="center">Co-located with HPCA 2026, February 1 2026, Sydney, Australia</h4>
+  <picture>
+  	<source media="(prefers-color-scheme: dark)" srcset="logo/logo-light.png">
+  	<source media="(prefers-color-scheme: light)" srcset="logo/logo-dark.png">
+  <img alt="athena-logo" src="logo/logo-dark.png" width="400">
+</picture>
+  <!-- <h2 align="center">The 4th Data Prefetching Championship (DPC4)</h2>
+  <h4 align="center">Co-located with HPCA 2026, February 1 2026, Sydney, Australia</h4> -->
 </p>
 
 This repository is the one-stop destination of everything related to DPC4. It contains, among many things, (1) the codes of the competing prefetchers, (2) the simulation infrastructure, (3) workload traces, (4) evaluation metrics, and (5) any other auxiliary scripts used in DPC4. More information about the championship can be found at https://sites.google.com/view/dpc4-2026/home
