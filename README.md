@@ -2,7 +2,7 @@
   <picture>
   	<source media="(prefers-color-scheme: dark)" srcset="logo/logo-light.png">
   	<source media="(prefers-color-scheme: light)" srcset="logo/logo-dark.png">
-  <img alt="athena-logo" src="logo/logo-dark.png" width="400">
+  <img alt="athena-logo" src="logo/logo-dark.png" width="800">
 </picture>
   <!-- <h2 align="center">The 4th Data Prefetching Championship (DPC4)</h2>
   <h4 align="center">Co-located with HPCA 2026, February 1 2026, Sydney, Australia</h4> -->
