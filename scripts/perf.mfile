@@ -1,0 +1,3 @@
+cycles = [0]["roi"]["cores"][0]["cycles"]
+instructions = [0]["roi"]["cores"][0]["instructions"]
+ipc = instructions/cycles
