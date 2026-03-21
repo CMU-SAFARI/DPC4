@@ -42,7 +42,14 @@ DPC4 used ChampSim as the simulation infrastructure to evaluate all submissions.
 
 ## Workload Traces
 
-Coming soon!
+The workload traces used in DPC4 can be found here: https://console.cloud.google.com/storage/browser/dpc4-all-traces
+
+This storage bucket contains all 610 traces. More information about the composition of the traces can be found in [our slides](https://github.com/CMU-SAFARI/DPC4/blob/main/presentations/dpc4-conclusion.pptx). These trace in total may take ~3 TB of storage.
+
+##### Acknowledgements
+- `SPEC17` traces were open-sourced by [DPC3](https://dpc3.compas.cs.stonybrook.edu). We are grateful to [Prof. Daniel Jiménez](https://people.engr.tamu.edu/djimenez/index.html) and [Prof. Mike Ferdman](https://compas.cs.stonybrook.edu/~mferdman/) for capturing and maintaining these traces.
+- `Graph/GAP` traces were open-sourced by [ML-Based Data Prefetching Competition](https://sites.google.com/view/mlarchsys/isca-2021/ml-prefetching-competition).
+- `gtrace_v2` traces were originally [open-sourced by Google](https://dynamorio.org/google_workload_traces.html) and later converted to ChampSim. We are grateful to [Matthew Giordano](https://homes.cs.washington.edu/~mgiordan/) and [Akanksha Jain](https://research.google/people/akankshajain/) for this effort.
 
 ## Evaluation Metric
 
