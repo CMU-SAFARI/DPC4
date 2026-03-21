@@ -72,7 +72,7 @@ The overall score of a submission is calculated as the non-weighted geometric me
 
 ## Auxiliary Scripts
 
-Coming soon!
+Check inside the `scripts` directory. [scripts/README.md](https://github.com/CMU-SAFARI/DPC4/blob/main/scripts/README.md) provides a documentation on how to use the scripts.
 
 ## Acknowledgements
 
