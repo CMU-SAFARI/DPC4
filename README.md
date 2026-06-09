@@ -72,7 +72,13 @@ The overall score of a submission is calculated as the non-weighted geometric me
 
 ## Auxiliary Scripts
 
-Check inside the `scripts` directory. [scripts/README.md](https://github.com/CMU-SAFARI/DPC4/blob/main/scripts/README.md) provides a documentation on how to use the scripts.
+Check inside the `scripts` directory. [scripts/README.md](https://github.com/CMU-SAFARI/DPC4/blob/main/scripts/README.md) provides a documentation on how to use the scripts. The evaluation results can be found in [eval.xlsx](https://github.com/CMU-SAFARI/DPC4/blob/main/scripts/eval.xlsx) file.
+
+## Trace Repository
+
+All the trace files used for DPC4 can be downloaded from this Google Cloud Bucket: https://console.cloud.google.com/storage/browser/dpc4-all-traces
+
+> The full repository is sized ~3.5TB. Please be considerate while downloading.
 
 ## Acknowledgements
 
