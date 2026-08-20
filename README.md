@@ -42,9 +42,43 @@ DPC4 used ChampSim as the simulation infrastructure to evaluate all submissions.
 
 ## Workload Traces
 
-The workload traces used in DPC4 can be found here: https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev 
+All 610 workload traces used in DPC4 are hosted in a public Cloudflare R2 bucket, taking ~1.5 TB of storage in compressed form. More information about the composition of the traces can be found in [our slides](https://github.com/CMU-SAFARI/DPC4/blob/main/presentations/dpc4-conclusion.pptx).
 
-This storage bucket contains all 610 traces. More information about the composition of the traces can be found in [our slides](https://github.com/CMU-SAFARI/DPC4/blob/main/presentations/dpc4-conclusion.pptx). These trace in total may take ~3 TB of storage.
+The bucket cannot be listed by opening its base URL in a browser. Instead, [`manifest.txt`](https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev/manifest.txt) is the index of the dataset: it lists every object with its path, size, last-modified time, and upload checksum. Downloading needs no prior knowledge of the directory layout — the manifest supplies it.
+
+To download a single trace, append its `path` column to the base URL:
+
+```bash
+wget https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev/SPEC17/602.gcc_s-1850B.champsimtrace.xz
+```
+
+To download in bulk, turn the manifest into a URL list:
+
+```bash
+BASE=https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev
+
+# 1. Fetch the index
+curl -sO $BASE/manifest.txt
+
+# 2. Build a URL list (skip the '#' preamble and the header row)
+grep -v '^#' manifest.txt | tail -n +2 | cut -f1 | sed "s|^|$BASE/|" > urls.txt
+
+# 3. Download, recreating the directory layout. -c resumes an interrupted run,
+#    so re-running the same command picks up where it left off.
+wget -x -nH -c -i urls.txt
+```
+
+To fetch just one collection, filter the `path` column first — e.g. only the 92 `SPEC17` traces:
+
+```bash
+grep -v '^#' manifest.txt | tail -n +2 | awk -F'\t' '$1 ~ /^SPEC17\//{print $1}' \
+  | sed "s|^|$BASE/|" > spec17.txt
+wget -x -nH -c -i spec17.txt
+```
+
+The collections are `SPEC17` (92 traces), `gtrace_v2` (359), `ai-ml` (80), and `Graph` (79, split further into `GAP`, `GMS`, and `Ligra`).
+
+> The full repository is sized ~1.5 TB. Please be considerate while downloading.
 
 ##### Acknowledgements
 - `SPEC17` traces were open-sourced by [DPC3](https://dpc3.compas.cs.stonybrook.edu). We are grateful to [Prof. Daniel Jiménez](https://people.engr.tamu.edu/djimenez/index.html) and [Prof. Mike Ferdman](https://compas.cs.stonybrook.edu/~mferdman/) for capturing and maintaining these traces.
@@ -73,12 +107,6 @@ The overall score of a submission is calculated as the non-weighted geometric me
 ## Auxiliary Scripts
 
 Check inside the `scripts` directory. [scripts/README.md](https://github.com/CMU-SAFARI/DPC4/blob/main/scripts/README.md) provides a documentation on how to use the scripts. The evaluation results can be found in [eval.xlsx](https://github.com/CMU-SAFARI/DPC4/blob/main/scripts/eval.xlsx) file.
-
-## Trace Repository
-
-All the trace files used for DPC4 can be downloaded from this Google Cloud Bucket: https://console.cloud.google.com/storage/browser/dpc4-all-traces
-
-> The full repository is sized ~3.5TB. Please be considerate while downloading.
 
 ## Acknowledgements
 
