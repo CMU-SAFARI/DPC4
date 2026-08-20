@@ -42,7 +42,7 @@ DPC4 used ChampSim as the simulation infrastructure to evaluate all submissions.
 
 ## Workload Traces
 
-The workload traces used in DPC4 can be found here: https://console.cloud.google.com/storage/browser/dpc4-all-traces
+The workload traces used in DPC4 can be found here: https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev 
 
 This storage bucket contains all 610 traces. More information about the composition of the traces can be found in [our slides](https://github.com/CMU-SAFARI/DPC4/blob/main/presentations/dpc4-conclusion.pptx). These trace in total may take ~3 TB of storage.
 
