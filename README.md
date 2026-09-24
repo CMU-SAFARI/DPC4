@@ -42,20 +42,22 @@ DPC4 used ChampSim as the simulation infrastructure to evaluate all submissions.
 
 ## Workload Traces
 
-All 610 workload traces used in DPC4 are hosted in a public Cloudflare R2 bucket, taking ~1.5 TB of storage in compressed form. More information about the composition of the traces can be found in [our slides](https://github.com/CMU-SAFARI/DPC4/blob/main/presentations/dpc4-conclusion.pptx).
+All 610 workload traces used in DPC4 are hosted in a public Cloudflare R2 bucket at `https://traces.rbera.com/dpc4/`, taking ~1.5 TB of storage in compressed form. More information about the composition of the traces can be found in [our slides](https://github.com/CMU-SAFARI/DPC4/blob/main/presentations/dpc4-conclusion.pptx).
 
-The bucket cannot be listed by opening its base URL in a browser. Instead, [`manifest.txt`](https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev/manifest.txt) is the index of the dataset: it lists every object with its path, size, last-modified time, and upload checksum. Downloading needs no prior knowledge of the directory layout — the manifest supplies it.
+The bucket cannot be listed by opening its base URL in a browser. Instead, [`manifest.txt`](https://traces.rbera.com/dpc4/manifest.txt) is the index of the dataset: it lists every object with its path, size, last-modified time, and upload checksum. Downloading needs no prior knowledge of the directory layout — the manifest supplies it.
+
+> The traces used to be served only from `https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev/`. That URL still works and serves the same files, so existing scripts keep working.
 
 To download a single trace, append its `path` column to the base URL:
 
 ```bash
-wget https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev/SPEC17/602.gcc_s-1850B.champsimtrace.xz
+wget https://traces.rbera.com/dpc4/SPEC17/602.gcc_s-1850B.champsimtrace.xz
 ```
 
 To download in bulk, turn the manifest into a URL list:
 
 ```bash
-BASE=https://pub-c31f67d79d1b4cd28ff320612b1a9f84.r2.dev
+BASE=https://traces.rbera.com/dpc4
 
 # 1. Fetch the index
 curl -sO $BASE/manifest.txt
@@ -63,9 +65,10 @@ curl -sO $BASE/manifest.txt
 # 2. Build a URL list (skip the '#' preamble and the header row)
 grep -v '^#' manifest.txt | tail -n +2 | cut -f1 | sed "s|^|$BASE/|" > urls.txt
 
-# 3. Download, recreating the directory layout. -c resumes an interrupted run,
+# 3. Download, recreating the directory layout. --cut-dirs=1 drops the leading
+#    dpc4/, so files land in SPEC17/, Graph/, ... -c resumes an interrupted run,
 #    so re-running the same command picks up where it left off.
-wget -x -nH -c -i urls.txt
+wget -x -nH --cut-dirs=1 -c -i urls.txt
 ```
 
 To fetch just one collection, filter the `path` column first — e.g. only the 92 `SPEC17` traces:
@@ -73,7 +76,7 @@ To fetch just one collection, filter the `path` column first — e.g. only the 9
 ```bash
 grep -v '^#' manifest.txt | tail -n +2 | awk -F'\t' '$1 ~ /^SPEC17\//{print $1}' \
   | sed "s|^|$BASE/|" > spec17.txt
-wget -x -nH -c -i spec17.txt
+wget -x -nH --cut-dirs=1 -c -i spec17.txt
 ```
 
 The collections are `SPEC17` (92 traces), `gtrace_v2` (359), `ai-ml` (80), and `Graph` (79, split further into `GAP`, `GMS`, and `Ligra`).
